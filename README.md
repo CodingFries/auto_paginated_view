@@ -170,21 +170,21 @@ AutoPaginatedView(
 
 ## Parameters
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `items` | `List` | The list of items to display |
-| `hasReachedEnd` | `bool` | Whether all available items have been loaded |
-| `onLoadMore` | `Future<String?> Function()` | Callback to load more items. Returns null on success or error message on failure |
-| `itemBuilder` | `Widget Function(BuildContext, int)` | Builder for individual items in the list |
-| `builder` | `Widget Function(BuildContext, int, Widget Function(BuildContext, int))` | Builder for the list container (ListView, GridView, etc.) |
-| `loadingStateBuilder` | `Widget Function()?` | Custom builder for the loading state widget |
-| `errorStateBuilder` | `Widget Function(String, VoidCallback)?` | Custom builder for the error state widget |
-| `emptyStateBuilder` | `Widget Function()?` | Custom builder for the empty state widget |
-| `isInsideSliverView` | `bool` | Whether the widget is being used inside a sliver view |
-| `emptyStateHeight` | `double?` | Height for the empty state widget |
-| `visibilityThreshold` | `double` | Visibility threshold for triggering loading more items |
-| `autoLoadInitially` | `bool` | Whether to automatically load items when the widget is first built |
-| `autoRefreshOnEmptyList` | `bool` | Whether to automatically refresh when the list becomes empty |
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `items` | `List` | Yes | The list of items to display |
+| `hasReachedEnd` | `bool` | Yes | Whether all available items have been loaded |
+| `onLoadMore` | `Future<String?> Function()` | Yes | Callback to load more items. Returns null on success or error message on failure |
+| `itemBuilder` | `Widget Function(BuildContext, int)` | Yes | Builder for individual items in the list |
+| `builder` | `Widget Function(BuildContext, int, Widget Function(BuildContext, int))` | Yes | Builder for the list container (ListView, GridView, etc.) |
+| `loadingStateBuilder` | `Widget Function()?` | No | Custom builder for the loading state widget |
+| `errorStateBuilder` | `Widget Function(String, VoidCallback)?` | No | Custom builder for the error state widget |
+| `emptyStateBuilder` | `Widget Function()?` | No | Custom builder for the empty state widget |
+| `isInsideSliverView` | `bool` | No | Whether the widget is being used inside a sliver view. Default is `false` |
+| `emptyStateHeight` | `double?` | No | Height for the empty state widget. If not provided, the empty state will take its natural height based on its content. |
+| `visibilityThreshold` | `double` | No | Visibility threshold for triggering loading more items. Default is `0` |
+| `autoLoadInitially` | `bool` | No | Whether to automatically load items when the widget is first built. Default is `true` |
+| `autoRefreshOnEmptyList` | `bool` | No | Whether to automatically refresh when the list becomes empty. Default is `true` |
 
 ## Advanced Usage
 

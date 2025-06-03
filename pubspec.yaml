@@ -1,7 +1,7 @@
 name: auto_paginated_view
 description: "A Flutter package that simplifies implementing infinite scrolling lists with automatic pagination handling."
 version: 1.0.0
-homepage:
+homepage: https://github.com/CodingFries/auto_paginated_view
 
 environment:
   sdk: ^3.7.2
