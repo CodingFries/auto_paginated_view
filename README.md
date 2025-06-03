@@ -4,6 +4,8 @@ A Flutter widget that simplifies implementing automatic pagination in list-based
 
 [![pub package](https://img.shields.io/pub/v/auto_paginated_view.svg)](https://pub.dev/packages/auto_paginated_view)
 
+![AutoPaginatedView Demo](https://raw.githubusercontent.com/YourUsername/auto_paginated_view/main/gifs/demo.gif)
+
 ## Features
 
 - 📋 **Universal List Support**: Works with ListView, GridView, SliverList, SliverGrid, and custom list implementations
@@ -12,6 +14,18 @@ A Flutter widget that simplifies implementing automatic pagination in list-based
 - 🔍 **Empty State Handling**: Displays appropriate widgets when the list is empty
 - 🎨 **Customizable**: Allows full customization of loading, error, and empty state widgets
 - 🔧 **Highly Configurable**: Flexible parameters for customizing behavior and appearance
+
+## Examples
+
+Here are some examples of what you can build with AutoPaginatedView:
+
+| ListView | GridView | Pull-to-Refresh |
+|----------|----------|-----------------|
+| ![ListView Example](https://raw.githubusercontent.com/YourUsername/auto_paginated_view/main/gifs/listview.gif) | ![GridView Example](https://raw.githubusercontent.com/YourUsername/auto_paginated_view/main/gifs/gridview.gif) | ![Pull-to-Refresh Example](https://raw.githubusercontent.com/YourUsername/auto_paginated_view/main/gifs/pull_to_refresh.gif) |
+
+| SliverList | SliverGrid |
+|------------|------------|
+| ![SliverList Example](https://raw.githubusercontent.com/YourUsername/auto_paginated_view/main/gifs/sliverlist.gif) | ![SliverGrid Example](https://raw.githubusercontent.com/YourUsername/auto_paginated_view/main/gifs/slivergrid.gif) |
 
 ## Getting Started
 
