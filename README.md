@@ -19,7 +19,7 @@ Add the package to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  auto_paginated_view: 
+  auto_paginated_view:
 ```
 
 Then run:
@@ -27,6 +27,10 @@ Then run:
 ```
 flutter pub get
 ```
+
+### Dependencies
+
+This package uses [visibility_detector](https://pub.dev/packages/visibility_detector) to determine when to trigger loading more items. This dependency is managed automatically when you add `auto_paginated_view` to your project.
 
 ## Usage
 
