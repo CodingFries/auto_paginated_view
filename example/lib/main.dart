@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'examples/custom_states_example.dart';
 import 'examples/gridview_example.dart';
 import 'examples/listview_example.dart';
 import 'examples/slivergrid_example.dart';
@@ -77,16 +76,6 @@ class HomePage extends StatelessWidget {
             () => Navigator.push(
               context,
               MaterialPageRoute(builder: (_) => const SliverGridExample()),
-            ),
-          ),
-          _buildExampleCard(
-            context,
-            'Custom States Example',
-            'Customized loading, error and empty states',
-            Icons.settings,
-            () => Navigator.push(
-              context,
-              MaterialPageRoute(builder: (_) => const CustomStatesExample()),
             ),
           ),
         ],
