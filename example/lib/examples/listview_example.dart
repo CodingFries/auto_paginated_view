@@ -59,7 +59,7 @@ class _ListViewExampleState extends State<ListViewExample> {
             onPressed: () {
               setState(() {
                 _currentPage = 0;
-                _items = [];
+                _items.clear();
                 _hasMoreItems = true;
                 _dataService.clearData('text');
               });

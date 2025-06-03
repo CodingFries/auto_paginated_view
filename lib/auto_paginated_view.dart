@@ -138,6 +138,8 @@ class _AutoPaginatedViewState extends State<AutoPaginatedView> {
   /// Tracks if the loading indicator is currently visible to the user.
   bool _isLoadingIndicatorVisible = false;
 
+  int _oldItemCount = 0;
+
   @override
   void initState() {
     super.initState();
@@ -150,10 +152,12 @@ class _AutoPaginatedViewState extends State<AutoPaginatedView> {
   @override
   void didUpdateWidget(covariant AutoPaginatedView oldWidget) {
     if (widget.autoRefreshOnEmptyList &&
-        oldWidget.items.isNotEmpty &&
+        _oldItemCount > 0 &&
         widget.items.isEmpty) {
       _loadMore();
     }
+
+    _oldItemCount = widget.items.length;
 
     super.didUpdateWidget(oldWidget);
   }
