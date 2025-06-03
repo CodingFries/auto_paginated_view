@@ -19,7 +19,7 @@ Add the package to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  auto_paginated_view: ^1.0.0
+  auto_paginated_view: 
 ```
 
 Then run:
