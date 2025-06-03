@@ -25,3 +25,11 @@ flutter:
 repository: https://github.com/CodingFries/auto_paginated_view
 issue_tracker: https://github.com/CodingFries/auto_paginated_view/issues
 documentation: https://github.com/CodingFries/auto_paginated_view
+
+topics:
+  - infinite scrolling
+  - pagination
+  - lazy loading
+  - listview
+  - gridview
+  - sliver
