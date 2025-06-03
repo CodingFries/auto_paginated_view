@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'examples/gridview_example.dart';
 import 'examples/listview_example.dart';
+import 'examples/refresh_indicator_example.dart';
 import 'examples/slivergrid_example.dart';
 import 'examples/sliverlist_example.dart';
 
@@ -76,6 +77,18 @@ class HomePage extends StatelessWidget {
             () => Navigator.push(
               context,
               MaterialPageRoute(builder: (_) => const SliverGridExample()),
+            ),
+          ),
+          _buildExampleCard(
+            context,
+            'Pull-to-Refresh Example',
+            'Using AutoPaginatedView with RefreshIndicator',
+            Icons.refresh,
+            () => Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (_) => const RefreshIndicatorExample(),
+              ),
             ),
           ),
         ],
