@@ -89,6 +89,7 @@ class _SliverListExampleState extends State<SliverListExample> {
             items: _items,
             hasReachedEnd: !_hasMoreItems,
             onLoadMore: _loadMoreItems,
+            emptyStateHeight: 300,
             isInsideSliverView:
                 true, // Important: set this to true for sliver usage
             // Builder for each individual item
