@@ -77,9 +77,6 @@ class _ListViewExampleState extends State<ListViewExample> {
         // Function to load more items when the user scrolls to the end
         onLoadMore: _loadMoreItems,
 
-        // Height for the empty state when no items are available
-        emptyStateHeight: 300,
-
         // Builder for each individual item
         itemBuilder: (context, index) {
           final item = _items[index];
