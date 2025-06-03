@@ -138,6 +138,8 @@ class _AutoPaginatedViewState extends State<AutoPaginatedView> {
   /// Tracks if the loading indicator is currently visible to the user.
   bool _isLoadingIndicatorVisible = false;
 
+  /// Stores the previous item count to detect changes in the list.
+  /// Used for the autoRefreshOnEmptyList functionality to detect when a list becomes empty.
   int _oldItemCount = 0;
 
   @override
