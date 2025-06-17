@@ -166,8 +166,14 @@ class _AutoPaginatedViewState extends State<AutoPaginatedView> {
 
   /// Checks if the loading indicator is visible and loads more items if needed.
   void _checkVisibility() {
+    // Only schedule a future if the widget is still mounted
+    if (!mounted) return;
+
     Future.delayed(Duration(seconds: 1), () {
       if (_isLoadingIndicatorVisible && !_isLoading && !widget.hasReachedEnd) {
+        // Check mounted state again before setState
+        if (!mounted) return;
+
         // Call your function if the item is visible
         _loadMore();
       }
@@ -176,28 +182,50 @@ class _AutoPaginatedViewState extends State<AutoPaginatedView> {
 
   /// Loads more items by calling the onLoadMore callback.
   void _loadMore() async {
-    setState(() {
+    // if (!mounted) return; // Safety check
+
+    setStateIfMounted(() {
       _isLoading = true;
       _error = null;
     });
 
     try {
       final result = await widget.onLoadMore();
+      if (!mounted) return; // Safety check
+
       if (result != null) {
-        setState(() {
+        setStateIfMounted(() {
           _error = result;
         });
       }
     } catch (e) {
-      setState(() {
+      setStateIfMounted(() {
         _error = e.toString();
       });
     } finally {
-      setState(() {
+      setStateIfMounted(() {
         _isLoading = false;
       });
 
       _checkVisibility();
+    }
+  }
+
+  /// Safely updates the widget state if it's still mounted.
+  ///
+  /// This helper method ensures state changes are only performed on mounted widgets
+  /// to avoid "setState() called after dispose()" errors.
+  ///
+  /// @param callback The function containing state changes to apply
+  void setStateIfMounted(VoidCallback callback) {
+    if (mounted) {
+      setState(() {
+        callback();
+      });
+    } else {
+      // Execute callback even when widget is not mounted
+      // This allows state variables to be updated even if UI won't reflect it
+      callback();
     }
   }
 
