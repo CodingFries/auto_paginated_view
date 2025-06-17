@@ -13,7 +13,7 @@ class ListViewExample extends StatefulWidget {
 
 class _ListViewExampleState extends State<ListViewExample> {
   final MockDataService _dataService = MockDataService();
-  List<Map<String, dynamic>> _items = [];
+  final List<Map<String, dynamic>> _items = [];
   int _currentPage = 0;
   bool _hasMoreItems = true;
 
