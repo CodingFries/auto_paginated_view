@@ -1,3 +1,17 @@
+## 1.1.0 - June 17, 2025
+
+* Added new functionality:
+  * `setStateIfMounted` utility method to safely update state even when widget is unmounted
+  * Improved state management to prevent "setState() called after dispose()" errors
+  * State variables now update properly even when UI can't reflect changes
+* Documentation improvements:
+  * Enhanced README layout with better organized example GIFs
+  * Improved visual presentation of examples in documentation
+  * Added more detailed parameter descriptions
+* Example app improvements:
+  * Updated example app README with clearer instructions
+  * Added screenshots and feature demonstrations
+
 ## 1.0.0
 
 * Initial release of AutoPaginatedView
