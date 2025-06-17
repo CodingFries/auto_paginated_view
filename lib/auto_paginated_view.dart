@@ -66,11 +66,31 @@ class AutoPaginatedView extends StatefulWidget {
   /// This function should return a `Future<String?>` where:
   /// - `null` indicates success
   /// - A non-null String represents an error message
+  ///
+  /// Example:
+  /// ```
+  /// onLoadMore: () async {
+  ///   try {
+  ///     await fetchMoreItems();
+  ///     return null; // Success
+  ///   } catch (e) {
+  ///     return 'Failed to load: ${e.message}'; // Error message
+  ///   }
+  /// }
+  /// ```
   final Future<String?> Function() onLoadMore;
 
   /// Builder for individual items in the list.
   ///
   /// This function is responsible for building the widget for each item at the specified index.
+  ///
+  /// Example:
+  /// ```
+  /// itemBuilder: (context, index) => ListTile(
+  ///   title: Text(items[index].title),
+  ///   subtitle: Text(items[index].description),
+  /// )
+  /// ```
   final Widget Function(BuildContext, int) itemBuilder;
 
   /// Builder for the list container (ListView, GridView, etc.).
@@ -79,6 +99,15 @@ class AutoPaginatedView extends StatefulWidget {
   /// - BuildContext
   /// - itemCount (includes items plus potentially a loading indicator)
   /// - itemBuilder function to use for building individual items
+  ///
+  /// Example:
+  /// ```
+  /// builder: (context, itemCount, itemBuilder) => ListView.builder(
+  ///   itemCount: itemCount,
+  ///   itemBuilder: itemBuilder,
+  ///   padding: EdgeInsets.all(16),
+  /// )
+  /// ```
   final Widget Function(
     BuildContext context,
     int itemCount,
@@ -89,17 +118,63 @@ class AutoPaginatedView extends StatefulWidget {
   /// Custom builder for the loading state widget.
   ///
   /// If not provided, a default loading indicator will be used.
+  ///
+  /// Example:
+  /// ```
+  /// loadingStateBuilder: () => Center(
+  ///   child: Column(
+  ///     children: [
+  ///       CircularProgressIndicator(),
+  ///       SizedBox(height: 16),
+  ///       Text('Loading more items...'),
+  ///     ],
+  ///   ),
+  /// )
+  /// ```
   final Widget Function()? loadingStateBuilder;
 
   /// Custom builder for the error state widget.
   ///
   /// If not provided, a default error widget with retry button will be used.
   /// The function receives the error message and a callback to retry loading.
+  ///
+  /// Example:
+  /// ```
+  /// errorStateBuilder: (error, onRetry) => Center(
+  ///   child: Column(
+  ///     children: [
+  ///       Icon(Icons.error, color: Colors.red),
+  ///       Text('Error: $error'),
+  ///       ElevatedButton(
+  ///         onPressed: onRetry,
+  ///         child: Text('Try Again'),
+  ///       ),
+  ///     ],
+  ///   ),
+  /// )
+  /// ```
   final Widget Function(String error, VoidCallback onRetry)? errorStateBuilder;
 
   /// Custom builder for the empty state widget.
   ///
   /// If not provided, a default "No items found" message will be displayed.
+  ///
+  /// Example:
+  /// ```
+  /// emptyStateBuilder: () => Center(
+  ///   child: Column(
+  ///     mainAxisAlignment: MainAxisAlignment.center,
+  ///     children: [
+  ///       Icon(Icons.inbox, size: 64, color: Colors.grey),
+  ///       Text('No items available'),
+  ///       ElevatedButton(
+  ///         onPressed: () => refreshData(),
+  ///         child: Text('Refresh'),
+  ///       ),
+  ///     ],
+  ///   ),
+  /// )
+  /// ```
   final Widget Function()? emptyStateBuilder;
 
   /// Whether the widget is being used inside a sliver view.
