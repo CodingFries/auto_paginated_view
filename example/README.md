@@ -1,16 +1,47 @@
-# example
+# AutoPaginatedView Example
 
-A new Flutter project.
+This example project demonstrates how to use the `auto_paginated_view` Flutter package to implement automatic pagination in various list views.
+
+## Examples Included
+
+This project includes several examples demonstrating different use cases:
+
+- **ListView Example**: A basic implementation with ListView.builder
+- **GridView Example**: Shows how to use AutoPaginatedView with GridView.builder
+- **Pull-to-Refresh Example**: Demonstrates combining AutoPaginatedView with RefreshIndicator
+- **SliverList Example**: Shows how to use AutoPaginatedView with SliverList
+- **SliverGrid Example**: Demonstrates AutoPaginatedView with SliverGrid
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+1. Ensure you have Flutter installed on your machine
+2. Clone the repository
+3. Run the project:
+   ```
+   cd example
+   flutter pub get
+   flutter run
+   ```
 
-A few resources to get you started if this is your first Flutter project:
+## Features Demonstrated
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+- Automatic loading of more items when reaching the end of the list
+- Error handling and retry functionality
+- Empty state handling
+- Different list layouts (linear, grid)
+- Pull-to-refresh functionality
+- Customization of loading, error, and empty state widgets
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Screenshots
+
+| ListView | GridView | Pull-to-Refresh |
+|----------|----------|-----------------|
+| ![ListView Example](https://raw.githubusercontent.com/CodingFries/auto_paginated_view/main/gifs/listview.gif) | ![GridView Example](https://raw.githubusercontent.com/CodingFries/auto_paginated_view/main/gifs/gridview.gif) | ![Pull-to-Refresh Example](https://raw.githubusercontent.com/CodingFries/auto_paginated_view/main/gifs/pull_to_refresh.gif) |
+
+| SliverList | SliverGrid |
+|------------|------------|
+| ![SliverList Example](https://raw.githubusercontent.com/CodingFries/auto_paginated_view/main/gifs/sliverlist.gif) | ![SliverGrid Example](https://raw.githubusercontent.com/CodingFries/auto_paginated_view/main/gifs/slivergrid.gif) |
+
+## Learn More
+
+For more information on the AutoPaginatedView package, visit the [GitHub repository](https://github.com/CodingFries/auto_paginated_view) or [pub.dev page](https://pub.dev/packages/auto_paginated_view).
