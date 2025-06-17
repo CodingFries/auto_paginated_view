@@ -38,9 +38,18 @@ This project includes several examples demonstrating different use cases:
 |----------|----------|-----------------|
 | ![ListView Example](https://raw.githubusercontent.com/CodingFries/auto_paginated_view/main/gifs/listview.gif) | ![GridView Example](https://raw.githubusercontent.com/CodingFries/auto_paginated_view/main/gifs/gridview.gif) | ![Pull-to-Refresh Example](https://raw.githubusercontent.com/CodingFries/auto_paginated_view/main/gifs/pull_to_refresh.gif) |
 
-| SliverList | SliverGrid |
-|------------|------------|
-| ![SliverList Example](https://raw.githubusercontent.com/CodingFries/auto_paginated_view/main/gifs/sliverlist.gif) | ![SliverGrid Example](https://raw.githubusercontent.com/CodingFries/auto_paginated_view/main/gifs/slivergrid.gif) |
+<div style="width:66%;">
+<table>
+  <tr>
+    <th>SliverList</th>
+    <th>SliverGrid</th>
+  </tr>
+  <tr>
+    <td align="center"><img src="https://raw.githubusercontent.com/CodingFries/auto_paginated_view/main/gifs/sliverlist.gif" alt="SliverList Example"></td>
+    <td align="center"><img src="https://raw.githubusercontent.com/CodingFries/auto_paginated_view/main/gifs/slivergrid.gif" alt="SliverGrid Example"></td>
+  </tr>
+</table>
+</div>
 
 ## Learn More
 
