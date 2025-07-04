@@ -193,6 +193,47 @@ AutoPaginatedView(
 )
 ```
 
+### Pull-to-Refresh with Empty States
+
+AutoPaginatedView now includes enhanced support for pull-to-refresh functionality, especially when working with empty states:
+
+```dart
+RefreshIndicator(
+  onRefresh: () async {
+    setState(() {
+      items = []; // Creates new list instance - triggers autoRefreshOnListChange
+      currentPage = 0;
+      hasMoreItems = true;
+    });
+  },
+  child: AutoPaginatedView(
+    items: items,
+    hasReachedEnd: !hasMoreItems,
+    onLoadMore: loadMoreItems,
+    itemBuilder: itemBuilder,
+    builder: (context, itemCount, itemBuilder) => ListView.builder(
+      physics: const AlwaysScrollableScrollPhysics(), // Enables pull-to-refresh on empty lists
+      itemCount: itemCount,
+      itemBuilder: itemBuilder,
+    ),
+    // Custom empty state that works with RefreshIndicator
+    emptyStateBuilder: () => Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Icon(Icons.arrow_downward, size: 48, color: Colors.blue),
+        SizedBox(height: 16),
+        Text('Pull down to load items'),
+      ],
+    ),
+  ),
+)
+```
+
+**Key features:**
+- **Empty State Pull-to-Refresh**: Users can pull down to refresh even when the list is empty
+- **Automatic Refresh Detection**: Setting `items = []` automatically triggers `onLoadMore` due to the `autoRefreshOnListChange` parameter
+- **Memory Address Tracking**: The widget detects when a new list instance is assigned, enabling proper refresh behavior
+
 ## Parameters
 
 | Parameter | Type | Required | Description |
@@ -210,6 +251,7 @@ AutoPaginatedView(
 | `visibilityThreshold` | `double` | No | Visibility threshold for triggering loading more items. Default is `0` |
 | `autoLoadInitially` | `bool` | No | Whether to automatically load items when the widget is first built. Default is `true` |
 | `autoRefreshOnEmptyList` | `bool` | No | Whether to automatically refresh when the list becomes empty. Default is `true` |
+| `autoRefreshOnListChange` | `bool` | No | Whether to automatically refresh when the list changes (useful when refreshing, e.g., after a pull-to-refresh). Default is `true` |
 
 ## Advanced Usage
 

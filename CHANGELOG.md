@@ -1,3 +1,10 @@
+## 1.2.0 - July 04, 2025
+
+* Added new functionality:
+  * Added `autoRefreshOnEmptyList` parameter to automatically refresh when the list becomes empty
+  * Added `autoRefreshOnListChange` parameter to automatically refresh when the list changes (useful for pull-to-refresh scenarios)
+  * Enhanced pull-to-refresh functionality to work properly with empty states
+
 ## 1.1.0 - June 17, 2025
 
 * Added new functionality:
