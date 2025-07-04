@@ -1,3 +1,18 @@
+## 1.6.0 - July 04, 2025
+
+* Bug Fixes:
+    * Fix autoRefresh Logic
+
+## 1.5.0 - July 04, 2025
+
+* Big Fixes:
+    * Pass onRefresh Callback to Empty State Builder
+
+## 1.4.0 - July 04, 2025
+
+* Functionality improvements:
+    * Added Retry callbacks for Empty and Error states
+
 ## 1.3.0 - July 04, 2025
 
 * Functionality improvements:
