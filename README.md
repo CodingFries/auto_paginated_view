@@ -201,7 +201,7 @@ AutoPaginatedView now includes enhanced support for pull-to-refresh functionalit
 RefreshIndicator(
   onRefresh: () async {
     setState(() {
-      items = []; // Creates new list instance - triggers autoRefreshOnListChange
+      items = []; // Clear the list to start fresh
       currentPage = 0;
       hasMoreItems = true;
     });
@@ -231,8 +231,7 @@ RefreshIndicator(
 
 **Key features:**
 - **Empty State Pull-to-Refresh**: Users can pull down to refresh even when the list is empty
-- **Automatic Refresh Detection**: Setting `items = []` automatically triggers `onLoadMore` due to the `autoRefreshOnListChange` parameter
-- **Memory Address Tracking**: The widget detects when a new list instance is assigned, enabling proper refresh behavior
+- **Manual Refresh Control**: Setting `items = []` clears the list, and you can manually trigger loading by calling `onLoadMore` or through user interaction
 
 ## Parameters
 
@@ -250,8 +249,7 @@ RefreshIndicator(
 | `emptyStateHeight` | `double?` | No | Height for the empty state widget. If not provided, the empty state will take its natural height based on its content. |
 | `visibilityThreshold` | `double` | No | Visibility threshold for triggering loading more items. Default is `0` |
 | `autoLoadInitially` | `bool` | No | Whether to automatically load items when the widget is first built. Default is `true` |
-| `autoRefreshOnEmptyList` | `bool` | No | Whether to automatically refresh when the list becomes empty. Default is `true` |
-| `autoRefreshOnListChange` | `bool` | No | Whether to automatically refresh when the list changes (useful when refreshing, e.g., after a pull-to-refresh). Default is `true` |
+| `autoRefreshOnEmptyList` | `bool` | No | Whether to automatically refresh when the list becomes empty (transitions from having items to being empty). Default is `true` |
 
 ## Advanced Usage
 

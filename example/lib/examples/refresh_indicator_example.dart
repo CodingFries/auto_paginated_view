@@ -51,13 +51,13 @@ class _RefreshIndicatorExampleState extends State<RefreshIndicatorExample> {
   }
 
   /// Refresh the entire list from the beginning
-  /// 
-  /// Note: Setting _items = [] creates a new list instance, which changes the
-  /// memory address. This triggers AutoPaginatedView's autoRefreshOnListChange
-  /// functionality, automatically calling onLoadMore to reload the data.
+  ///
+  /// When the list is cleared, AutoPaginatedView's autoRefreshOnEmptyList
+  /// functionality will automatically trigger onLoadMore to reload the data
+  /// since the list transitions from having items to being empty.
   Future<void> _refreshList() async {
     setState(() {
-      _items = []; // Creates new list instance - triggers autoRefreshOnListChange
+      _items.clear();
       _currentPage = 0;
       _hasMoreItems = true;
       _dataService.clearData('text');

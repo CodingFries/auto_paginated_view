@@ -53,7 +53,6 @@ class AutoPaginatedView extends StatefulWidget {
     this.visibilityThreshold = 0,
     this.autoLoadInitially = true,
     this.autoRefreshOnEmptyList = true,
-    this.autoRefreshOnListChange = true,
   });
 
   /// The list of items to display.
@@ -221,10 +220,6 @@ class AutoPaginatedView extends StatefulWidget {
   /// Whether to automatically refresh when the list becomes empty.
   final bool autoRefreshOnEmptyList;
 
-  /// Whether to automatically refresh when the list changes (useful when refreshing,
-  /// e.g., after a pull-to-refresh).
-  final bool autoRefreshOnListChange;
-
   @override
   State<AutoPaginatedView> createState() => _AutoPaginatedViewState();
 }
@@ -241,11 +236,7 @@ class _AutoPaginatedViewState extends State<AutoPaginatedView> {
 
   /// Stores the previous item count to detect changes in the list.
   /// Used for the autoRefreshOnEmptyList functionality to detect when a list becomes empty.
-  int _oldItemCount = 0;
-
-  /// Stores the previous list of items to detect changes.
-  /// Used for the autoRefreshOnListChange functionality to detect when the list changes.
-  List? _oldList;
+  int _oldItemsCount = 0;
 
   @override
   void initState() {
@@ -258,14 +249,13 @@ class _AutoPaginatedViewState extends State<AutoPaginatedView> {
 
   @override
   void didUpdateWidget(covariant AutoPaginatedView oldWidget) {
-    if ((widget.autoRefreshOnEmptyList && _oldItemCount > 0) ||
-        (widget.autoRefreshOnListChange && _oldList != widget.items) &&
-            widget.items.isEmpty) {
+    if (widget.autoRefreshOnEmptyList &&
+        _oldItemsCount > 0 &&
+        widget.items.isEmpty) {
       _callFunctionWithLoading(widget.onLoadMore);
     }
 
-    _oldList = widget.items;
-    _oldItemCount = widget.items.length;
+    _oldItemsCount = widget.items.length;
 
     super.didUpdateWidget(oldWidget);
   }

@@ -1,3 +1,16 @@
+## 1.7.0 - July 04, 2025
+
+* Feature Restoration:
+    * Restored `autoRefreshOnEmptyList` parameter - automatic refresh when list becomes empty is now supported again
+    * This feature automatically triggers `onLoadMore` when the list becomes empty (transitions from having items to
+      being empty)
+    * Default value is `true` to maintain backward compatibility
+
+* Breaking Changes:
+    * Removed `autoRefreshOnListChange` parameter - automatic refresh when list changes is no longer supported
+    * Users should now manually control refresh behavior through pull-to-refresh or explicit button actions for list
+      change scenarios
+
 ## 1.6.0 - July 04, 2025
 
 * Bug Fixes:
