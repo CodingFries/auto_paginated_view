@@ -258,10 +258,9 @@ class _AutoPaginatedViewState extends State<AutoPaginatedView> {
 
   @override
   void didUpdateWidget(covariant AutoPaginatedView oldWidget) {
-    if ((widget.autoRefreshOnEmptyList &&
-            _oldItemCount > 0 &&
-            widget.items.isEmpty) ||
-        (widget.autoRefreshOnListChange && _oldList != widget.items)) {
+    if ((widget.autoRefreshOnEmptyList && _oldItemCount > 0) ||
+        (widget.autoRefreshOnListChange && _oldList != widget.items) &&
+            widget.items.isEmpty) {
       _callFunctionWithLoading(widget.onLoadMore);
     }
 
