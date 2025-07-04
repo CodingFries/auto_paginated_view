@@ -41,6 +41,8 @@ class AutoPaginatedView extends StatefulWidget {
     required this.items,
     required this.hasReachedEnd,
     required this.onLoadMore,
+    this.onEmptyStateRetry,
+    this.onErrorStateRetry,
     required this.itemBuilder,
     required this.builder,
     this.loadingStateBuilder,
@@ -80,6 +82,10 @@ class AutoPaginatedView extends StatefulWidget {
   /// }
   /// ```
   final Future<String?> Function() onLoadMore;
+
+  final Future<String?> Function()? onEmptyStateRetry;
+
+  final Future<String?> Function()? onErrorStateRetry;
 
   /// Builder for individual items in the list.
   ///
@@ -231,7 +237,7 @@ class _AutoPaginatedViewState extends State<AutoPaginatedView> {
     super.initState();
 
     if (widget.autoLoadInitially) {
-      _loadMore();
+      _callFunctionWithLoading(widget.onLoadMore);
     }
   }
 
@@ -241,7 +247,7 @@ class _AutoPaginatedViewState extends State<AutoPaginatedView> {
             _oldItemCount > 0 &&
             widget.items.isEmpty) ||
         (widget.autoRefreshOnListChange && _oldList != widget.items)) {
-      _loadMore();
+      _callFunctionWithLoading(widget.onLoadMore);
     }
 
     _oldList = widget.items;
@@ -261,22 +267,20 @@ class _AutoPaginatedViewState extends State<AutoPaginatedView> {
         if (!mounted) return;
 
         // Call your function if the item is visible
-        _loadMore();
+        _callFunctionWithLoading(widget.onLoadMore);
       }
     });
   }
 
   /// Loads more items by calling the onLoadMore callback.
-  void _loadMore() async {
-    // if (!mounted) return; // Safety check
-
+  void _callFunctionWithLoading(Function function) async {
     setStateIfMounted(() {
       _isLoading = true;
       _error = null;
     });
 
     try {
-      final result = await widget.onLoadMore();
+      final result = await function();
       if (!mounted) return; // Safety check
 
       if (result != null) {
@@ -366,7 +370,7 @@ class _AutoPaginatedViewState extends State<AutoPaginatedView> {
           if (!_isLoading &&
               !widget.hasReachedEnd &&
               _isLoadingIndicatorVisible) {
-            _loadMore();
+            _callFunctionWithLoading(widget.onLoadMore);
           }
         },
         child: _buildLoadingState(),
@@ -381,14 +385,32 @@ class _AutoPaginatedViewState extends State<AutoPaginatedView> {
 
   /// Builds the error state widget with the given error message.
   Widget _buildErrorState(String error) {
-    return widget.errorStateBuilder?.call(error, _loadMore) ??
-        _ErrorWidget(error: error, onRetry: _loadMore);
+    return widget.errorStateBuilder?.call(
+          error,
+          () => _callFunctionWithLoading(
+            widget.onErrorStateRetry ?? widget.onLoadMore,
+          ),
+        ) ??
+        _ErrorWidget(
+          error: error,
+          onRetry: () {
+            _callFunctionWithLoading(
+              widget.onErrorStateRetry ?? widget.onLoadMore,
+            );
+          },
+        );
   }
 
   /// Builds the empty state widget.
   Widget _buildEmptyState() {
     return widget.emptyStateBuilder?.call() ??
-        _ErrorWidget(error: 'No items found', onRetry: _loadMore);
+        _ErrorWidget(
+          error: 'No items found',
+          onRetry:
+              () => _callFunctionWithLoading(
+                widget.onEmptyStateRetry ?? widget.onLoadMore,
+              ),
+        );
   }
 }
 
@@ -408,7 +430,7 @@ class _ErrorWidget extends StatelessWidget {
 
   final String error;
 
-  final Function onRetry;
+  final VoidCallback onRetry;
 
   @override
   Widget build(BuildContext context) {
@@ -416,7 +438,7 @@ class _ErrorWidget extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          IconButton(onPressed: () => onRetry(), icon: Icon(Icons.refresh)),
+          IconButton(onPressed: onRetry, icon: Icon(Icons.refresh)),
           Text(error),
         ],
       ),
