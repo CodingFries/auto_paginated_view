@@ -83,8 +83,24 @@ class AutoPaginatedView extends StatefulWidget {
   /// ```
   final Future<String?> Function() onLoadMore;
 
+  /// Callback function to retry loading when in empty state.
+  ///
+  /// This function is called when the user taps the retry button in the empty state.
+  /// If not provided, [onLoadMore] will be used as the fallback.
+  ///
+  /// This function should return a `Future<String?>` where:
+  /// - `null` indicates success
+  /// - A non-null String represents an error message
   final Future<String?> Function()? onEmptyStateRetry;
 
+  /// Callback function to retry loading when in error state.
+  ///
+  /// This function is called when the user taps the retry button in the error state.
+  /// If not provided, [onLoadMore] will be used as the fallback.
+  ///
+  /// This function should return a `Future<String?>` where:
+  /// - `null` indicates success
+  /// - A non-null String represents an error message
   final Future<String?> Function()? onErrorStateRetry;
 
   /// Builder for individual items in the list.
@@ -272,7 +288,12 @@ class _AutoPaginatedViewState extends State<AutoPaginatedView> {
     });
   }
 
-  /// Loads more items by calling the onLoadMore callback.
+  /// Executes the provided function while managing loading state and error handling.
+  ///
+  /// This method sets the loading state to true, calls the provided function,
+  /// handles any errors that occur, and updates the error state accordingly.
+  /// Finally, it resets the loading state and checks visibility for potential
+  /// additional loading triggers.
   void _callFunctionWithLoading(Function function) async {
     setStateIfMounted(() {
       _isLoading = true;
@@ -306,7 +327,7 @@ class _AutoPaginatedViewState extends State<AutoPaginatedView> {
   /// This helper method ensures state changes are only performed on mounted widgets
   /// to avoid "setState() called after dispose()" errors.
   ///
-  /// @param callback The function containing state changes to apply
+  /// The [callback] parameter contains the function with state changes to apply.
   void setStateIfMounted(VoidCallback callback) {
     if (mounted) {
       setState(() {
@@ -428,8 +449,10 @@ class _LoadingWidget extends StatelessWidget {
 class _ErrorWidget extends StatelessWidget {
   const _ErrorWidget({required this.error, required this.onRetry});
 
+  /// The error message to display to the user.
   final String error;
 
+  /// Callback function executed when the user taps the retry button.
   final VoidCallback onRetry;
 
   @override
