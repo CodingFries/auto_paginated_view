@@ -317,24 +317,20 @@ class _AutoPaginatedViewState extends State<AutoPaginatedView> {
 
   /// Builds the widget to display when the list is empty.
   Widget _emptyListBuilder() {
-    return SizedBox(
-      height: widget.emptyStateHeight,
-      child: Builder(
-        builder: (context) {
-          if (_isLoading) {
-            return _buildLoadingState();
-          } else if (_error != null) {
-            return _buildErrorState(_error!);
-          } else {
-            if (!widget.isInsideSliverView) {
-              return SingleChildScrollView(
-                physics: const AlwaysScrollableScrollPhysics(),
-                child: Center(child: Column(children: [_buildEmptyState()])),
-              );
+    return Center(
+      child: SizedBox(
+        height: widget.emptyStateHeight,
+        child: Builder(
+          builder: (context) {
+            if (_isLoading) {
+              return _buildLoadingState();
+            } else if (_error != null) {
+              return _buildErrorState(_error!);
+            } else {
+              return _buildEmptyState();
             }
-            return _buildEmptyState();
-          }
-        },
+          },
+        ),
       ),
     );
   }
@@ -392,7 +388,7 @@ class _AutoPaginatedViewState extends State<AutoPaginatedView> {
   /// Builds the empty state widget.
   Widget _buildEmptyState() {
     return widget.emptyStateBuilder?.call() ??
-        const _TextWidget(text: 'No items found');
+        _ErrorWidget(error: 'No items found', onRetry: _loadMore);
   }
 }
 
@@ -403,18 +399,6 @@ class _LoadingWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(child: CircularProgressIndicator());
-  }
-}
-
-/// Default text display widget used for empty states.
-class _TextWidget extends StatelessWidget {
-  const _TextWidget({required this.text});
-
-  final String text;
-
-  @override
-  Widget build(BuildContext context) {
-    return Center(child: Text(text));
   }
 }
 

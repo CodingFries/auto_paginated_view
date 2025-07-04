@@ -118,29 +118,6 @@ class _RefreshIndicatorExampleState extends State<RefreshIndicatorExample> {
             );
           },
 
-          // Custom empty state builder to provide instructions for the RefreshIndicator
-          emptyStateBuilder:
-              () => Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Icon(
-                    Icons.arrow_downward,
-                    size: 48,
-                    color: Colors.blue,
-                  ),
-                  const SizedBox(height: 16),
-                  const Text(
-                    'Pull down to load items',
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    'No items loaded yet',
-                    style: TextStyle(color: Colors.grey.shade600),
-                  ),
-                ],
-              ),
-
           // Builder for the list container
           builder: (context, itemCount, itemBuilder) {
             return ListView.builder(
