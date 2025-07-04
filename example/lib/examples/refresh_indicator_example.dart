@@ -15,7 +15,7 @@ class RefreshIndicatorExample extends StatefulWidget {
 
 class _RefreshIndicatorExampleState extends State<RefreshIndicatorExample> {
   final MockDataService _dataService = MockDataService();
-  final List<Map<String, dynamic>> _items = [];
+  List<Map<String, dynamic>> _items = [];
   int _currentPage = 0;
   bool _hasMoreItems = true;
 
@@ -53,7 +53,7 @@ class _RefreshIndicatorExampleState extends State<RefreshIndicatorExample> {
   /// Refresh the entire list from the beginning
   Future<void> _refreshList() async {
     setState(() {
-      _items.clear();
+      _items = [];
       _currentPage = 0;
       _hasMoreItems = true;
       _dataService.clearData('text');

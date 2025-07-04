@@ -23,6 +23,7 @@ class MockDataService {
 
     // Simulate network delay
     await Future.delayed(Duration(milliseconds: 500 + _random.nextInt(1000)));
+    return [];
 
     // Simulate error sometimes (approximately 10% of the time)
     if (_random.nextDouble() < 0.1) {

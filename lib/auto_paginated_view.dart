@@ -51,6 +51,7 @@ class AutoPaginatedView extends StatefulWidget {
     this.visibilityThreshold = 0,
     this.autoLoadInitially = true,
     this.autoRefreshOnEmptyList = true,
+    this.autoRefreshOnListChange = true,
   });
 
   /// The list of items to display.
@@ -199,6 +200,10 @@ class AutoPaginatedView extends StatefulWidget {
   /// Whether to automatically refresh when the list becomes empty.
   final bool autoRefreshOnEmptyList;
 
+  /// Whether to automatically refresh when the list changes (useful when refreshing,
+  /// e.g., after a pull-to-refresh).
+  final bool autoRefreshOnListChange;
+
   @override
   State<AutoPaginatedView> createState() => _AutoPaginatedViewState();
 }
@@ -217,6 +222,10 @@ class _AutoPaginatedViewState extends State<AutoPaginatedView> {
   /// Used for the autoRefreshOnEmptyList functionality to detect when a list becomes empty.
   int _oldItemCount = 0;
 
+  /// Stores the previous list of items to detect changes.
+  /// Used for the autoRefreshOnListChange functionality to detect when the list changes.
+  List? _oldList;
+
   @override
   void initState() {
     super.initState();
@@ -228,12 +237,14 @@ class _AutoPaginatedViewState extends State<AutoPaginatedView> {
 
   @override
   void didUpdateWidget(covariant AutoPaginatedView oldWidget) {
-    if (widget.autoRefreshOnEmptyList &&
-        _oldItemCount > 0 &&
-        widget.items.isEmpty) {
+    if ((widget.autoRefreshOnEmptyList &&
+            _oldItemCount > 0 &&
+            widget.items.isEmpty) ||
+        (widget.autoRefreshOnListChange && _oldList != widget.items)) {
       _loadMore();
     }
 
+    _oldList = widget.items;
     _oldItemCount = widget.items.length;
 
     super.didUpdateWidget(oldWidget);
@@ -315,6 +326,12 @@ class _AutoPaginatedViewState extends State<AutoPaginatedView> {
           } else if (_error != null) {
             return _buildErrorState(_error!);
           } else {
+            if (!widget.isInsideSliverView) {
+              return SingleChildScrollView(
+                physics: const AlwaysScrollableScrollPhysics(),
+                child: Center(child: Column(children: [_buildEmptyState()])),
+              );
+            }
             return _buildEmptyState();
           }
         },
