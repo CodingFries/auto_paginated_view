@@ -188,17 +188,16 @@ class AutoPaginatedView extends StatefulWidget {
   ///   child: Column(
   ///     mainAxisAlignment: MainAxisAlignment.center,
   ///     children: [
-  ///       Icon(Icons.inbox, size: 64, color: Colors.grey),
   ///       Text('No items available'),
   ///       ElevatedButton(
-  ///         onPressed: () => refreshData(),
+  ///         onPressed: onRefresh,
   ///         child: Text('Refresh'),
   ///       ),
   ///     ],
   ///   ),
   /// )
   /// ```
-  final Widget Function()? emptyStateBuilder;
+  final Widget Function(VoidCallback onRefresh)? emptyStateBuilder;
 
   /// Whether the widget is being used inside a sliver view.
   ///
@@ -424,7 +423,11 @@ class _AutoPaginatedViewState extends State<AutoPaginatedView> {
 
   /// Builds the empty state widget.
   Widget _buildEmptyState() {
-    return widget.emptyStateBuilder?.call() ??
+    return widget.emptyStateBuilder?.call(
+          () => _callFunctionWithLoading(
+            widget.onEmptyStateRetry ?? widget.onLoadMore,
+          ),
+        ) ??
         _ErrorWidget(
           error: 'No items found',
           onRetry:
